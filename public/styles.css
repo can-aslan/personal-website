@@ -1,0 +1,111 @@
+:root {
+  --colors-animation-time: 20s;
+}
+
+body {
+  background-image: url('images/homepageBackground.png');
+}
+
+h1 {
+  color: black;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #051f4d;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #031330;
+}
+
+.aboutmediv {
+  text-align: center;
+}
+
+.aboutmelinks {
+  margin-top: 35px;
+  text-align: center;
+}
+
+.aboutmelink {
+  border: 4px solid #031330;
+  border-radius: 50%;
+  padding: 0.6% 0.6%;
+  margin: 1vmin 1vmin;
+  display: inline-block;
+  background: rgb(155, 180, 255);
+  transition: all 0.15s ease;
+}
+
+.aboutmelink > a > img {
+  max-width: 50px;
+  max-height: 50px;
+}
+
+.resumelink {
+  text-align: center;
+}
+
+.aboutmelink:hover {
+  cursor: pointer;
+  background: rgb(105, 121, 210);
+}
+
+#welcome_div {
+  border: 4px solid #031330;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  margin: 10px 0;
+  padding: 5vmax;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ADCEEF;
+}
+
+#welcome_letter_div {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  font-size: 4.8vw;
+  transition: all 0.15s ease;
+  font-weight: bolder;
+  -webkit-animation-duration: var(--colors-animation-time);
+  animation-duration: var(--colors-animation-time);
+  -webkit-animation-name: colors;
+  animation-name: colors;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+
+#welcome_letter_div:hover {
+  text-shadow: 2px 0 black, -2px 0 black, 0 -2px black, 0 2px black;
+}
+
+@-webkit-keyframes colors {
+  0% {color: #0080ff}
+  15% {color: #083b45;}
+  30% {color: #f6c12d;}
+  45% {color: #93be3c;}
+  60% {color: #732e72;}
+  75% {color: #db2a0a;}
+  90% {color: #4d4008;}
+  100% {color: #0080ff}
+}
