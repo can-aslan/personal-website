@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!-- Snake Game by https://www.youtube.com/channel/UCFbNIlppjAuEX4znoulh0Cw -->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Snake Game</title>
+  <style>
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 20;
+      overflow: hidden;
+      background-color: #051f4d;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    li {
+      float: top;
+    }
+
+    li a {
+      display: block;
+      color: white;
+      text-align: left;
+      padding: 20px;
+      text-decoration: none;
+    }
+
+    li a:hover {
+      background-color: #031330;
+    }
+
+    body {
+      height: 90vh;
+      width: 90vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      background-image: url('images/treasureHuntBackground.png');
+    }
+
+    #game-board {
+      background-color: ivory;
+      width: 100vmin;
+      height: 100vmin;
+      display: grid;
+      grid-template-rows: repeat(21, 1fr);
+      grid-template-columns: repeat(21, 1fr);
+      border: .55vmin solid black;
+    }
+
+    .snake {
+      background-color: hsl(111, 71%, 45%);
+      border: .25vmin solid black;
+    }
+
+    .food {
+      background-color: hsl(1, 98%, 38%);
+      border: .25vmin solid black;
+    }
+  </style>
+</head>
+
+<ul>
+  <!--  <li><a href="index.html">⌂ Home</a></li> -->
+  <li><a href="index.html">⌂ Return to Home</a></li>
+</ul>
+
+<body>
+  <div id="game-board"></div>
+  <script src="scripts/snakejs.js" defer type="module"></script>
+</body>
+
+</html>
