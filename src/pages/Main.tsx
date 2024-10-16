@@ -1,5 +1,6 @@
 import Header from "../components/header/Header";
 import Education from "../components/sections/education/Education";
+import Experience from "../components/sections/experience/Experience";
 import Home from "../components/sections/home/Home";
 
 const Main = () => {
@@ -13,7 +14,7 @@ const Main = () => {
         <Education />
       </section>
       <section id="experience">
-        <h2>Experience</h2>
+        <Experience />
       </section>
     </>
   );

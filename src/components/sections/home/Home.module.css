@@ -5,6 +5,7 @@
   justify-content: center;
   text-align: center;
   padding: 20px;
+  margin-top: 20px;
   margin-bottom: 10px;
 }
 
@@ -15,7 +16,7 @@
 }
 
 .name {
-  color: #0070f3; /* Example color for your name */
+  color: #0070f3;
 }
 
 .subtitle {
@@ -28,7 +29,7 @@
 .description {
   font-size: 1.2rem;
   color: #777;
-  max-width: 600px; /* Limit width for better readability */
+  max-width: 600px;
   margin-bottom: 15px;
 }
 

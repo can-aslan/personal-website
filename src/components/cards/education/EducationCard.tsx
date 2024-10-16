@@ -8,28 +8,28 @@ interface EducationCardProps {
   degree: string;
   duration: string;
   highlights: string[];
-  website: string;
 }
 
-const EducationCard = ({ logo, institution, location, degree, duration, highlights, website }: EducationCardProps) => {
+const EducationCard = ({ logo, institution, location, degree, duration, highlights }: EducationCardProps) => {
   return (
     <Container className={styles.card}>
       <Group align="flex-start" className={styles.cardHeader}>
-        <Image src={logo} alt={`${institution} logo`} className={styles.logo} />
-        <div>
-          <Text size="lg">{institution}</Text>
-          <Text size="sm">{location}</Text>
-        </div>
+        <Group className={styles.institutionInfo}>
+          <Image src={logo} alt={`${institution} logo`} className={styles.logo} />
+          
+          <div>
+            <Text size="lg" className={styles.institution}>{institution}</Text>
+            <Text size="sm" className={styles.location}>{location}</Text>
+          </div>
+        </Group>
+
         <Text size="sm" className={styles.duration}>{duration}</Text>
       </Group>
-      <Text size="md" className={styles.degree}>{degree}</Text>
-      <ul className={styles.highlights}>
-        {highlights.map((highlight, index) => (
-          <li key={index}>
-            <Text size="sm">{highlight}</Text>
-          </li>
-        ))}
-      </ul>
+
+      <Text size="lg" className={styles.degree}>{degree}</Text>
+      {highlights.map((highlight, index) => (
+        <Text size="sm">{highlight}</Text>
+      ))}
     </Container>
   );
 }

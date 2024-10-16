@@ -4,8 +4,8 @@
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
-  max-width: 800px;
-  width: 100%;
+  max-width: 1500px;
+  width: 50vw;
 }
 
 .cardHeader {
@@ -23,11 +23,23 @@
 }
 
 .duration {
+  margin-top: 10px;
+  margin-right: 10px;
   align-self: flex-start;
+  font-weight: 500;
+}
+
+.institution {
+  font-weight: 700;
+}
+
+.location {
+  font-weight: 500;
 }
 
 .degree {
   margin-bottom: 10px;
+  font-weight: 600;
 }
 
 .highlights {

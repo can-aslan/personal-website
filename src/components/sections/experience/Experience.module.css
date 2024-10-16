@@ -1,0 +1,27 @@
+.educationContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  margin-top: 50px; /* Adds some space from the header */
+}
+
+.timeline {
+  max-width: 800px; /* Limit the width for better readability */
+  width: 100%;
+}
+
+.timelineItem {
+  margin-bottom: 20px;
+}
+
+.dimmedText {
+  color: #555; /* Using a consistent color tone with the rest of the website */
+}
+
+.linkText {
+  color: #0070f3; /* Keeping the link color consistent with the rest of your site */
+}
+  

@@ -1,28 +1,35 @@
-import { Timeline, Text, Container } from "@mantine/core";
+import { Timeline, Container } from "@mantine/core";
 import styles from './Education.module.css';
 import EducationCard from "../../cards/education/EducationCard";
+import Title from "../../title/Title";
 
 const Education = () => {
   return (
     <Container className={styles.educationContent}>
-      <Timeline active={-1} bulletSize={75} lineWidth={5}>
+      <Title text="Education"/>
+      <Timeline active={-1} bulletSize={60} lineWidth={5}>
         <Timeline.Item>
-          
           <EducationCard
             logo={require('../../../assets/images/bilkent.png')}
             institution="Bilkent University"
-            location="Ankara, Turkiye"
-            degree="Bachelor of Science in Computer Engineering"
-            duration="Sep 2020 - Present (4 years 1 month)"
+            location="Ankara, Türkiye"
+            degree="Bachelor of Science, Computer Engineering"
+            duration="2020 - 2024"
             highlights={[
-              "Received 50% merit scholarship throughout the education.",
-              "Ranked in top 0.07% percentile among participants in the national university entrance exam.",
+              "Total CGPA: 3.22 / 4.00, Highest GPA: 3.70 / 4.00 (2022-2023 Fall)",
             ]}
-            website="https://www.bilkent.edu.tr"
           />
         </Timeline.Item>
 
         <Timeline.Item>
+          <EducationCard
+            logo={require('../../../assets/images/metu.png')}
+            institution="METU Development Foundation High School"
+            location="Ankara, Türkiye"
+            degree="High School Diploma (Math & Science)"
+            duration="2016 - 2020"
+            highlights={[]}
+          />
         </Timeline.Item>
       </Timeline>
     </Container>
