@@ -7,7 +7,7 @@ const Education = () => {
   return (
     <Container className={styles.educationContent}>
       <Title text="Education"/>
-      <Timeline active={-1} bulletSize={60} lineWidth={5}>
+      <Timeline active={1} bulletSize={50} lineWidth={5}>
         <Timeline.Item>
           <EducationCard
             logo={require('../../../assets/images/bilkent.png')}

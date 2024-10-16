@@ -1,0 +1,63 @@
+.card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  max-width: 1500px;
+  width: 50vw;
+}
+
+.cardHeader {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 110px;
+  height: 110px;
+  border-radius: 5px;
+}
+
+.duration {
+  margin-top: 10px;
+  margin-right: 10px;
+  align-self: flex-start;
+  font-weight: 500;
+}
+
+.positionDuration {
+  margin-top: 10px;
+  margin-right: 10px;
+  align-self: flex-start;
+  font-weight: 500;
+}
+
+.positionInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.institution {
+  font-weight: 700;
+}
+
+.location {
+  font-weight: 500;
+}
+
+.position {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.highlights {
+  padding-left: 20px;
+  margin: 0;
+  background-color: white;
+}
