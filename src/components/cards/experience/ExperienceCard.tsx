@@ -33,11 +33,13 @@ const ExperienceCard = ({ logo, institution, location, positions, duration, posi
             <Text size="lg" className={styles.position}>{position}</Text>
             <Text size="sm" className={styles.positionDuration}>{positionDurations[index]}</Text>
           </Group>
-          <List>
-            {highlights[index].map((highlight, index) => (
-              <List className={styles.highlights}>{highlight}</List>
-            ))}
-          </List>
+          {highlights[index].map((highlight, index) => (
+            <Text
+              className={styles.highlights}
+              key={index}
+              dangerouslySetInnerHTML={{ __html: `● ${highlight}` }}
+            />
+          ))}
         </>
       ))}
     </Container>

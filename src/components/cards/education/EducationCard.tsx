@@ -19,7 +19,7 @@ const EducationCard = ({ logo, institution, location, degree, duration, highligh
           
           <div>
             <Text size="lg" className={styles.institution}>{institution}</Text>
-            <Text size="sm" className={styles.location}>{location}</Text>
+            <Text size="sm" className={styles.location}>{`📍 ${location}`}</Text>
           </div>
         </Group>
 
