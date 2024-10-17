@@ -8,6 +8,11 @@
   width: 55vw;
 }
 
+.card:hover {
+  background-color: rgb(238, 238, 238);
+  transition: all 0.15s ease;
+}
+
 .cardHeader {
   display: flex;
   width: 100%;
@@ -59,5 +64,4 @@
 .highlights {
   padding-left: 20px;
   margin: 0;
-  background-color: white;
 }
