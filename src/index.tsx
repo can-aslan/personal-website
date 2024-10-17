@@ -1,10 +1,9 @@
+import '@mantine/core/styles.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { MantineProvider } from '@mantine/core';
-import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Main from './pages/Main';
-import '@mantine/core/styles.css';
 
 const router = createBrowserRouter([
   {

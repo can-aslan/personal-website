@@ -1,4 +1,4 @@
-import { Container, Text, Button, Group, Image, Badge, List } from '@mantine/core';
+import { Container, Text, Group, Image } from '@mantine/core';
 import styles from './ExperienceCard.module.css';
 
 interface ExperienceCardProps {
