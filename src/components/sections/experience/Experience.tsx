@@ -39,6 +39,7 @@ const Experience = () => {
                 "Offered Full-Time position upon graduation via Kartezya Technology based on <b>proven technical</b> and <b>interpersonal skills</b>.",
               ]
             ]}
+            skills={["Microservices", "Domain Driven Design", "H2", "Hibernate", "SAP PowerDesigner", "Swagger", "SQL", "Java", "JavaScript", "ReactJS", "TypeScript", "Spring Boot", "ELK Stack", "Unit/Integration Testing", "Mockito", "JUnit", "Jira", "Git", "Bitbucket", "Confluence", "Bamboo", "SonarQube", "SonarLint", "Redis", "Kubernetes", "Helm", "IntelliJ IDEA", "VS Code", "VMware Horizon", "Microsoft Teams", "Scrum"]}
           />
         </Timeline.Item>
 

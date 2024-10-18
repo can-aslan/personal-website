@@ -1,4 +1,4 @@
-import { Container, Text, Group, Image } from '@mantine/core';
+import { Container, Text, Group, Image, Badge } from '@mantine/core';
 import styles from './ExperienceCard.module.css';
 
 interface ExperienceCardProps {
@@ -9,9 +9,10 @@ interface ExperienceCardProps {
   duration: string;
   positionDurations: string[];
   highlights: string[][];
+  skills?: string[];
 }
 
-const ExperienceCard = ({ logo, institution, location, positions, duration, positionDurations, highlights }: ExperienceCardProps) => {
+const ExperienceCard = ({ logo, institution, location, positions, duration, positionDurations, highlights, skills }: ExperienceCardProps) => {
   return (
     <Container className={styles.card}>
       <Group align="flex-start" className={styles.cardHeader}>
@@ -42,6 +43,13 @@ const ExperienceCard = ({ logo, institution, location, positions, duration, posi
           ))}
         </>
       ))}
+      
+      <Text size="lg" className={styles.position}>Highlights</Text>
+      <Group className={styles.skillGroup}>
+        {skills?.map((skill, index) => (
+            <Badge>{skill}</Badge>
+        ))}
+      </Group>
     </Container>
   );
 }
