@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0d0f14" />
+  <title>Dice Roller</title>
+  <style>
+    :root{
+      --size: clamp(140px, 48vw, 220px);
+      --pip: clamp(12px, 3.6vw, 18px);
+      --face: #faf8f3;
+      --edge: #d9d4c7;
+      --pip-color: #0f1116;
+      --accent: #6ee7f2;
+      --accent-2: #a78bfa;
+      --bg: radial-gradient(1200px 600px at 10% 0%, #0f172a 0%, #0b1020 35%, #0a0d18 100%);
+      --glass: rgba(255,255,255,.06);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:#eef2ff;
+      background: var(--bg);
+      display:flex; align-items:center; justify-content:center;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+
+    .wrap{
+      width:min(94vw, 520px);
+      padding:20px;
+    }
+
+    .card{
+      position:relative;
+      padding:24px 18px 20px;
+      border-radius:18px;
+      background: linear-gradient( to bottom right, rgba(255,255,255,.08), rgba(255,255,255,.02) );
+      box-shadow:
+        0 12px 40px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.06);
+      backdrop-filter: blur(8px);
+    }
+
+    h1{
+      display:flex; align-items:center; gap:.55rem;
+      margin:0 0 14px;
+      font-weight:700; letter-spacing:.2px; font-size:clamp(18px, 3.8vw, 22px);
+    }
+    .badge{
+      font-size:.72em; font-weight:600; color:#0b1220;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      padding:.25rem .55rem; border-radius:999px;
+    }
+
+    .stage{
+      display:grid; place-items:center;
+      padding:18px 0 10px;
+    }
+
+    /* 3D Dice */
+    .scene{
+      width:var(--size); height:var(--size);
+      perspective: 900px;
+      filter: drop-shadow(0 28px 32px rgba(0,0,0,.45));
+    }
+    .cube{
+      width:100%; height:100%;
+      position:relative;
+      transform-style:preserve-3d;
+      transition: transform 900ms cubic-bezier(.2,.7,.2,1);
+      will-change: transform;
+    }
+    @media (prefers-reduced-motion: reduce){
+      .cube{ transition: transform 0ms linear; }
+    }
+    .face{
+      position:absolute; inset:0;
+      display:grid; grid-template: repeat(3,1fr) / repeat(3,1fr);
+      place-items:center;
+      background:
+        radial-gradient(220% 140% at 0% 0%, rgba(0,0,0,.08) 0%, rgba(0,0,0,.0) 38%),
+        radial-gradient(220% 140% at 100% 100%, rgba(255,255,255,.24) 0%, rgba(255,255,255,.04) 48%),
+        var(--face);
+      border-radius:18px;
+      border: 2px solid var(--edge);
+      box-shadow:
+        inset 0 0 0 2px rgba(0,0,0,.02),
+        inset 0 8px 18px rgba(0,0,0,.12);
+    }
+    .pip{
+      width:var(--pip); aspect-ratio:1; border-radius:50%;
+      background:
+        radial-gradient(70% 70% at 30% 30%, rgba(255,255,255,.7), rgba(255,255,255,0) 70%),
+        radial-gradient(70% 70% at 70% 70%, rgba(0,0,0,.45), rgba(0,0,0,0) 72%),
+        var(--pip-color);
+      box-shadow: 0 1px 0 rgba(255,255,255,.2), 0 3px 6px rgba(0,0,0,.35);
+    }
+    /* grid positions 1..9 (r/c) */
+    .p1{grid-area:1/1} .p2{grid-area:1/2} .p3{grid-area:1/3}
+    .p4{grid-area:2/1} .p5{grid-area:2/2} .p6{grid-area:2/3}
+    .p7{grid-area:3/1} .p8{grid-area:3/2} .p9{grid-area:3/3}
+
+    /* Place cube faces */
+    .f1{ transform: translateZ(calc(var(--size)/2)); }
+    .f2{ transform: rotateY(90deg) translateZ(calc(var(--size)/2)); }
+    .f3{ transform: rotateY(180deg) translateZ(calc(var(--size)/2)); }
+    .f4{ transform: rotateY(-90deg) translateZ(calc(var(--size)/2)); }
+    .f5{ transform: rotateX(90deg) translateZ(calc(var(--size)/2)); }
+    .f6{ transform: rotateX(-90deg) translateZ(calc(var(--size)/2)); }
+
+    /* Controls */
+    .controls{
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+      margin-top:12px; flex-wrap:wrap;
+    }
+    button{
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      appearance:none; border:none; cursor:pointer;
+      padding:14px 18px; font-weight:700; letter-spacing:.2px;
+      color:#071018; background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-radius:14px;
+      box-shadow: 0 10px 22px rgba(80,120,255,.32), inset 0 1px 0 rgba(255,255,255,.35);
+      transition: transform .04s ease, box-shadow .2s ease;
+    }
+    button:active{ transform:translateY(1px) scale(.996) }
+    .ghost{
+      background:transparent; color:#dbeafe; border:1px solid rgba(255,255,255,.18);
+      box-shadow:none; font-weight:600; padding:12px 14px;
+    }
+    .row{
+      display:flex; align-items:center; gap:8px;
+    }
+    .result{
+      font-size: clamp(38px, 10vw, 54px);
+      font-weight:800; letter-spacing:.5px;
+      line-height:1; margin:10px 6px 0;
+      background: linear-gradient(135deg, #fff, #b6e1ff);
+      -webkit-background-clip: text; background-clip:text; color:transparent;
+      text-shadow: 0 6px 30px rgba(30,144,255,.22);
+    }
+    .sub{
+      color:#9fb3c8; font-size:.9rem; margin-left:6px;
+    }
+    .hint{ color:#9fb3c8; font-size:.85rem; opacity:.9; margin-top:8px }
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0; }
+
+    /* subtle animated accent ring */
+    .ring{
+      position:absolute; inset:auto 0 8px;
+      width: min(70vw, 360px); height: 22px; margin:auto;
+      filter: blur(24px); opacity:.65; pointer-events:none;
+      background: radial-gradient(70% 60% at 50% 50%,
+        rgba(102,215,255,.65), rgba(167,139,250,.45) 40%, rgba(0,0,0,0) 70%);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="region" aria-label="Dice roller">
+      <h1>
+        🎲 Dice Roller
+        <span class="badge">Crypto‑random</span>
+      </h1>
+
+      <div class="stage">
+        <div class="scene" aria-hidden="true">
+          <div class="cube" id="cube">
+            <!-- Face 1 -->
+            <div class="face f1" data-face="1">
+              <span class="pip p5"></span>
+            </div>
+            <!-- Face 2 -->
+            <div class="face f2" data-face="2">
+              <span class="pip p1"></span><span class="pip p9"></span>
+            </div>
+            <!-- Face 3 -->
+            <div class="face f3" data-face="3">
+              <span class="pip p1"></span><span class="pip p5"></span><span class="pip p9"></span>
+            </div>
+            <!-- Face 4 -->
+            <div class="face f4" data-face="4">
+              <span class="pip p1"></span><span class="pip p3"></span><span class="pip p7"></span><span class="pip p9"></span>
+            </div>
+            <!-- Face 5 -->
+            <div class="face f5" data-face="5">
+              <span class="pip p1"></span><span class="pip p3"></span><span class="pip p5"></span><span class="pip p7"></span><span class="pip p9"></span>
+            </div>
+            <!-- Face 6 -->
+            <div class="face f6" data-face="6">
+              <span class="pip p1"></span><span class="pip p3"></span><span class="pip p4"></span><span class="pip p6"></span><span class="pip p7"></span><span class="pip p9"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="ring" aria-hidden="true"></div>
+
+        <div class="row" aria-live="polite" aria-atomic="true">
+          <div class="result" id="result">1</div>
+          <div class="sub">Tap Roll or shake</div>
+        </div>
+        <div id="a11y" class="sr-only" role="status" aria-live="polite">Result is 1</div>
+      </div>
+
+      <div class="controls">
+        <button id="rollBtn" type="button">Roll</button>
+        <button id="shakeBtn" class="ghost" type="button" aria-pressed="false">Enable Shake</button>
+      </div>
+      <div class="hint">Works great on mobile. Haptics on roll. No external files—perfect for Firebase Hosting.</div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const cube = document.getElementById('cube');
+      const resEl = document.getElementById('result');
+      const a11y = document.getElementById('a11y');
+      const rollBtn = document.getElementById('rollBtn');
+      const shakeBtn = document.getElementById('shakeBtn');
+
+      let isRolling = false;
+      let current = 1;
+
+      // Map target face -> base orientation that brings that face to the front
+      const baseRotations = {
+        1: {x: 0,   y:   0},
+        2: {x: 0,   y: -90},
+        3: {x: 0,   y: 180},
+        4: {x: 0,   y:  90},
+        5: {x:-90,  y:   0},
+        6: {x: 90,  y:   0}
+      };
+
+      function secureRandomInt(min, max){
+        // inclusive min/max
+        const range = max - min + 1;
+        const maxAcceptable = Math.floor(0xFFFFFFFF / range) * range;
+        const buf = new Uint32Array(1);
+        let x;
+        do {
+          window.crypto.getRandomValues(buf);
+          x = buf[0];
+        } while (x >= maxAcceptable);
+        return min + (x % range);
+      }
+
+      function vibrate(pattern){ try{ navigator.vibrate && navigator.vibrate(pattern); }catch(_){} }
+
+      function roll(){
+        if(isRolling) return;
+        isRolling = true;
+        rollBtn.disabled = true;
+
+        const target = secureRandomInt(1,6);
+        current = target;
+
+        // Add some extra full spins for drama
+        const spinsX = secureRandomInt(1,3) * 360;
+        const spinsY = secureRandomInt(1,3) * 360;
+        const twistZ = secureRandomInt(0,2) * 90;
+
+        const base = baseRotations[target];
+        const x = base.x + spinsX;
+        const y = base.y + spinsY;
+        const z = twistZ;
+
+        // Trigger haptic feedback
+        vibrate([20, 30, 20]);
+
+        // Animate
+        cube.style.transform = `rotateX(${x}deg) rotateY(${y}deg) rotateZ(${z}deg)`;
+
+        // Update text near the end of the animation for suspense
+        const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 900;
+        window.setTimeout(()=>{
+          resEl.textContent = String(target);
+          a11y.textContent = `Result is ${target}`;
+          isRolling = false;
+          rollBtn.disabled = false;
+        }, duration - 30);
+      }
+
+      rollBtn.addEventListener('click', roll);
+
+      // Shake-to-roll support (iOS requires permission)
+      let shakeEnabled = false, lastShake = 0;
+      function handleMotion(e){
+        const acc = e.accelerationIncludingGravity || e.acceleration || {x:0,y:0,z:0};
+        const strength = Math.abs(acc.x||0) + Math.abs(acc.y||0) + Math.abs(acc.z||0);
+        const now = Date.now();
+        if(strength > 32 && (now - lastShake) > 900){
+          lastShake = now;
+          roll();
+        }
+      }
+      async function enableShake(){
+        try{
+          if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function'){
+            const state = await DeviceMotionEvent.requestPermission();
+            if (state !== 'granted'){ return false; }
+          }
+          window.addEventListener('devicemotion', handleMotion, { passive:true });
+          return true;
+        }catch(_){ return false; }
+      }
+
+      shakeBtn.addEventListener('click', async ()=>{
+        if(!shakeEnabled){
+          const ok = await enableShake();
+          if(ok){
+            shakeEnabled = true;
+            shakeBtn.textContent = 'Shake Enabled';
+            shakeBtn.setAttribute('aria-pressed','true');
+          }else{
+            shakeBtn.textContent = 'Shake Unavailable';
+          }
+        }else{
+          window.removeEventListener('devicemotion', handleMotion);
+          shakeEnabled = false;
+          shakeBtn.textContent = 'Enable Shake';
+          shakeBtn.setAttribute('aria-pressed','false');
+        }
+      });
+
+      // First render: nice angled pose that shows multiple faces
+      requestAnimationFrame(()=>{
+        cube.style.transform = 'rotateX(-28deg) rotateY(32deg) rotateZ(0deg)';
+      });
+
+      // Tap the die to roll, too
+      cube.addEventListener('click', roll);
+
+      // Keyboard accessibility (desktop)
+      document.addEventListener('keydown', (e)=>{
+        if(e.code === 'Space' || e.code === 'Enter'){ e.preventDefault(); roll(); }
+      });
+    })();
+  </script>
+</body>
+</html>
